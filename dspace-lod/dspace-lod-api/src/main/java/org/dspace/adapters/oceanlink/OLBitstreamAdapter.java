@@ -28,9 +28,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * User: mini @ atmire . com
- * Date: 1/17/14
- * Time: 4:10 PM
+ * OceanLink Bitstream Adapter Provides conversion from DSpace Bitstream to OceanLink RDF model.
+ *
+ * @author Mini Pillai (minipillai at atmire.com)
+ * @author Mark Diggory (mdiggory at atmire.com)
  */
 public class OLBitstreamAdapter extends AbstractDSpaceEventAdapter {
 

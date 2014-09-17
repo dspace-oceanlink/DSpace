@@ -25,9 +25,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * User: mini @ atmire . com
- * Date: 1/17/14
- * Time: 4:10 PM
+ * DSpace Adapter Provides conversion from DSpace objects to DSpace RDF model.
+ *
+ * @author Mini Pillai (minipillai at atmire.com)
+ * @author Mark Diggory (mdiggory at atmire.com)
  */
 public class DSpaceBitstreamAdapter extends AbstractDSpaceEventAdapter {
     private static Logger log = Logger.getLogger(DSpaceBitstreamAdapter.class);

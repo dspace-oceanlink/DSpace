@@ -27,7 +27,7 @@
         <constructor-arg ref="org.dspace.services.RequestService"/>
         <property name="manager">
             <bean class="org.openrdf.repository.manager.RemoteRepositoryManager">
-                <constructor-arg value="${dspace.url}/sesame"/>
+                <constructor-arg value="${dspace.baseUrl}/sesame"/>
             </bean>
         </property>
         <property name="config">
@@ -40,7 +40,7 @@
                     -->
                     <bean class="org.openrdf.repository.sail.config.SailRepositoryConfig">
                         <constructor-arg>
-                            <bean class="org.openrdf.sail.memory.config.MemoryStoreConfig"/>
+                            <bean class="org.openrdf.sail.nativerdf.config.NativeStoreConfig"/>
                         </constructor-arg>
                     </bean>
                 </constructor-arg>
@@ -58,20 +58,9 @@
                     <property name="description" value="RDF data extracted from ${dspace.name} for OceanLink"/>
                     <property name="creator" value="${dspace.name}"/>
                     <property name="homepage" value="${dspace.url}"/>
-                    <property name="sparqlEndPoint" value="${dspace.url}/sesame/repositories/dspace"/>
+                    <property name="sparqlEndPoint" value="${dspace.baseUrl}/sesame/repositories/dspace"/>
                 </bean>
             </list>
-            <!--
-            Example of alternative list of adapters that change the format of the RDF output by the Consumer
-            <list>
-                <bean class="org.dspace.adapters.dspace.DSpaceBitstreamAdapter"/>
-                <bean class="org.dspace.adapters.dspace.DSpaceBundleAdapter"/>
-                <bean class="org.dspace.adapters.dspace.DSpaceItemAdapter"/>
-                <bean class="org.dspace.adapters.dspace.DSpaceCollectionAdapter"/>
-                <bean class="org.dspace.adapters.dspace.DSpaceCommunityAdapter"/>
-                <bean class="org.dspace.adapters.dspace.DSpaceSiteAdapter"/>
-            </list>
-            -->
         </property>
     </bean>
 

@@ -14,9 +14,9 @@ import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 
 /**
- * User: mini @ atmire . com
- * Date: 1/28/14
- * Time: 1:50 PM
+ *
+ * @author Mini Pillai (minipillai at atmire.com)
+ * @author Mark Diggory (mdiggory at atmire.com)
  */
 public interface RepositoryProvider {
 

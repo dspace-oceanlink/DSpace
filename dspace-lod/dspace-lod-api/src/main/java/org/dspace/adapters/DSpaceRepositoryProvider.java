@@ -24,11 +24,9 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dspace
- * Date: 5/3/14
- * Time: 2:45 AM
- * To change this template use File | Settings | File Templates.
+ *
+ * @author Mini Pillai (minipillai at atmire.com)
+ * @author Mark Diggory (mdiggory at atmire.com)
  */
 public class DSpaceRepositoryProvider implements RepositoryProvider, RequestInterceptor {
 

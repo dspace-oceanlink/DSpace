@@ -19,12 +19,11 @@ import org.openrdf.rio.RDFHandlerException;
 import java.sql.SQLException;
 
 /**
- * User: mini @ atmire . com
- * Date: 1/31/14
- * Time: 4:18 PM
+ * OceanLink  Adapter Provides conversion from DSpace objects to OceanLink RDF model.
+ *
+ * @author Mini Pillai (minipillai at atmire.com)
+ * @author Mark Diggory (mdiggory at atmire.com)
  */
-
-
 public class OLCollectionAdapter extends AbstractDSpaceEventAdapter
 {
     @Override

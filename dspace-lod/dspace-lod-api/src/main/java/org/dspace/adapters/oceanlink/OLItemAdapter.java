@@ -9,6 +9,7 @@ package org.dspace.adapters.oceanlink;
 
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 import org.dspace.adapters.oceanlink.vocabularies.*;
 import org.dspace.adapters.AbstractDSpaceEventAdapter;
 import org.dspace.adapters.dspace.vocabularies.DC;
@@ -33,11 +34,12 @@ import java.sql.SQLException;
 /**
  * OceanLink Item Adapter Provides conversion from DSpace Items to OceanLink RDF model.
  *
- * @author Mini Pillai (mini at atmire.com)
+ * @author Mini Pillai (minipillai at atmire.com)
  * @author Mark Diggory (mdiggory at atmire.com)
  */
 public class OLItemAdapter extends AbstractDSpaceEventAdapter
 {
+    private static final Logger log = Logger.getLogger(OLItemAdapter.class);
 
     @Override
     protected void install(Context ctx, DSpaceObject subject) throws Exception {
@@ -155,26 +157,38 @@ public class OLItemAdapter extends AbstractDSpaceEventAdapter
                         // suppress these elements
                     }
                 }
-
-                if(isUrl)
-                {
-                    handleStatement(dsItem, predicate, valueFactory.createLiteral(dc.value,DCTERMS.URI),DS.DescriptiveMetadata);
-                }
-                else if((predicate.equals(DC.language_) || predicate.equals(DCTERMS.language_)) && ISO639_1.getURIForString(dc.value) != null)
-                {
-                    handleStatement(dsItem, predicate, ISO639_1.getURIForString(dc.value),DS.DescriptiveMetadata);
-                }
-                else
-                {
-
-                    if (dc.schema.equals("dc")&& (dc.element.equals("title"))){
-                        handleStatement(dsItem, RepositoryObject.hasRepositoryObjectTitle, dc.value, DS.DescriptiveMetadata);
+                if(predicate != null && dc != null && dc.value != null){
+                    if(isUrl)
+                    {
+                        handleStatement(dsItem, predicate, valueFactory.createLiteral(dc.value,DCTERMS.URI),DS.DescriptiveMetadata);
                     }
-                    else if ((dc.qualifier != null) && dc.schema.equals("dc")&& (dc.element.equals("description") && dc.qualifier.equals("abstract"))){
-                        handleStatement(dsItem,  RepositoryObject.hasAbstract, dc.value, DS.DescriptiveMetadata);
+                    else if((predicate.equals(DC.language_) || predicate.equals(DCTERMS.language_)) && ISO639_1.getURIForString(dc.value) != null)
+                    {
+                        handleStatement(dsItem, predicate, ISO639_1.getURIForString(dc.value),DS.DescriptiveMetadata);
                     }
                     else
-                        handleStatement(dsItem, predicate, dc.value,DS.DescriptiveMetadata);
+                    {
+
+                        if (dc.schema.equals("dc")&& (dc.element.equals("title"))){
+                            handleStatement(dsItem, RepositoryObject.hasRepositoryObjectTitle, dc.value, DS.DescriptiveMetadata);
+                        }
+                        else if ((dc.qualifier != null) && dc.schema.equals("dc")&& (dc.element.equals("description") && dc.qualifier.equals("abstract"))){
+                            handleStatement(dsItem,  RepositoryObject.hasAbstract, dc.value, DS.DescriptiveMetadata);
+                        }
+                        else
+                            handleStatement(dsItem, predicate, dc.value,DS.DescriptiveMetadata);
+                    }
+                }
+                else if(dc == null){
+                    log.error("Item ID" + subject.getID() + ":DC object is null");
+                }
+                else if(dc.value == null)
+                {
+                    log.error("Item ID" + subject.getID() + ":" + dc.schema + "." + dc.element + dc.qualifier + ":value is null");
+                }
+                else if(predicate == null)
+                {
+                    log.error("Item ID" + subject.getID() + ":" + dc.schema + "." + dc.element + dc.qualifier + ":matching predicate is null");
                 }
             }
             else if (!dc.schema.equals("dc"))

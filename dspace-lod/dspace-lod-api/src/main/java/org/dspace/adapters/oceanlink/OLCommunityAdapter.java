@@ -18,11 +18,11 @@ import org.openrdf.model.Resource;
 import org.openrdf.repository.RepositoryException;
 
 /**
- * User: mini @ atmire . com
- * Date: 1/31/14
- * Time: 4:17 PM
+ * OceanLink  Adapter Provides conversion from DSpace objects to OceanLink RDF model.
+ *
+ * @author Mini Pillai (minipillai at atmire.com)
+ * @author Mark Diggory (mdiggory at atmire.com)
  */
-
 public class OLCommunityAdapter extends AbstractDSpaceEventAdapter
 {
 

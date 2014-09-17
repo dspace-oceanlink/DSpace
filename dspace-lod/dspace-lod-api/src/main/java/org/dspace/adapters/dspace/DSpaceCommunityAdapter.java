@@ -23,7 +23,12 @@ import org.openrdf.model.Resource;
 import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.repository.RepositoryException;
 
-
+/**
+ * DSpace Adapter Provides conversion from DSpace objects to DSpace RDF model.
+ *
+ * @author Mini Pillai (minipillai at atmire.com)
+ * @author Mark Diggory (mdiggory at atmire.com)
+ */
 public class DSpaceCommunityAdapter extends AbstractDSpaceEventAdapter
 {
 

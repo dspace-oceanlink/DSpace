@@ -7,7 +7,6 @@
  */
 package org.dspace.adapters.oceanlink;
 
-import org.dspace.adapters.dspace.vocabularies.DCTERMS;
 import org.dspace.adapters.oceanlink.vocabularies.RepositoryObject;
 import org.dspace.adapters.AbstractDSpaceEventAdapter;
 import org.dspace.adapters.dspace.vocabularies.DC;
@@ -16,22 +15,21 @@ import org.dspace.adapters.dspace.vocabularies.VOID;
 import org.dspace.content.Community;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.Site;
-import org.dspace.core.ConfigurationManager;
 import org.dspace.core.Constants;
 import org.dspace.core.Context;
 import org.dspace.event.Event;
 import org.openrdf.model.Resource;
 import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.repository.RepositoryException;
+import org.springframework.beans.factory.annotation.Required;
 
 
 /**
- * User: mini @ atmire . com
- * Date: 1/31/14
- * Time: 4:16 PM
+ * OceanLink  Adapter Provides conversion from DSpace objects to OceanLink RDF model.
+ *
+ * @author Mini Pillai (minipillai at atmire.com)
+ * @author Mark Diggory (mdiggory at atmire.com)
  */
-
-
 public class OLSiteAdapter extends AbstractDSpaceEventAdapter
 {
     private String title;
@@ -45,6 +43,7 @@ public class OLSiteAdapter extends AbstractDSpaceEventAdapter
         return title;
     }
 
+    @Required
     public void setTitle(String title) {
         this.title = title;
     }
@@ -52,7 +51,7 @@ public class OLSiteAdapter extends AbstractDSpaceEventAdapter
     public String getDescription() {
         return description;
     }
-
+    @Required
     public void setDescription(String description) {
         this.description = description;
     }
@@ -61,6 +60,7 @@ public class OLSiteAdapter extends AbstractDSpaceEventAdapter
         return creator;
     }
 
+    @Required
     public void setCreator(String creator) {
         this.creator = creator;
     }
@@ -68,7 +68,7 @@ public class OLSiteAdapter extends AbstractDSpaceEventAdapter
     public String getHomepage() {
         return homepage;
     }
-
+    @Required
     public void setHomepage(String homepage) {
         this.homepage = homepage;
     }
@@ -76,7 +76,7 @@ public class OLSiteAdapter extends AbstractDSpaceEventAdapter
     public String getSparqlEndPoint() {
         return sparqlEndPoint;
     }
-
+    @Required
     public void setSparqlEndPoint(String sparqlEndPoint) {
         this.sparqlEndPoint = sparqlEndPoint;
     }
@@ -136,26 +136,22 @@ public class OLSiteAdapter extends AbstractDSpaceEventAdapter
         * ADDING RDF for site metadata
         * =================================================================
         */
-        String ol_title = ConfigurationManager.getProperty("lod","ol_title");
-        String ol_description = ConfigurationManager.getProperty("lod","ol_description");
-        String ol_creator = ConfigurationManager.getProperty("lod","ol_creator");
-        String ol_homepage = ConfigurationManager.getProperty("lod","ol_homepage");
-        String ol_sparqlEndPoint = ConfigurationManager.getProperty("lod","ol_sparqlEndPoint");
+
 
         handleStatement(repository,
                 DC.title_, valueFactory.createLiteral(subject.getName()),DS.DescriptiveMetadata);
 
         // more Void statements
         handleStatement(repository,
-                VOID.title, valueFactory.createLiteral(ol_title),DS.DescriptiveMetadata);
+                VOID.title, valueFactory.createLiteral(title),DS.DescriptiveMetadata);
         handleStatement(repository,
-                VOID.description, valueFactory.createLiteral(ol_description),DS.DescriptiveMetadata);
+                VOID.description, valueFactory.createLiteral(description),DS.DescriptiveMetadata);
         handleStatement(repository,
-                VOID.creator, valueFactory.createLiteral(ol_creator),DS.DescriptiveMetadata);
+                VOID.creator, valueFactory.createLiteral(creator),DS.DescriptiveMetadata);
         handleStatement(repository,
-                VOID.homepage, valueFactory.createLiteral(ol_homepage),DS.DescriptiveMetadata);
+                VOID.homepage, valueFactory.createLiteral(homepage),DS.DescriptiveMetadata);
         handleStatement(repository,
-                VOID.sparqlEndPoint, valueFactory.createLiteral(ol_sparqlEndPoint),DS.DescriptiveMetadata);
+                VOID.sparqlEndPoint, valueFactory.createLiteral(sparqlEndPoint),DS.DescriptiveMetadata);
 
 
     }

@@ -17,11 +17,66 @@ import org.dspace.event.Event;
 import org.openrdf.model.Resource;
 import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.repository.RepositoryException;
+import org.springframework.beans.factory.annotation.Required;
 
 
-
+/**
+ * DSpace Adapter Provides conversion from DSpace objects to DSpace RDF model.
+ *
+ * @author Mini Pillai (minipillai at atmire.com)
+ * @author Mark Diggory (mdiggory at atmire.com)
+ */
 public class DSpaceSiteAdapter extends AbstractDSpaceEventAdapter
 {
+    private String title;
+    private String description;
+    private String creator;
+    private String homepage;
+    private String sparqlEndPoint;
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    @Required
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    @Required
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+    @Required
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+    @Required
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
+
+    public String getSparqlEndPoint() {
+        return sparqlEndPoint;
+    }
+    @Required
+    public void setSparqlEndPoint(String sparqlEndPoint) {
+        this.sparqlEndPoint = sparqlEndPoint;
+    }
+
+
 
     @Override
     protected void install(Context ctx, DSpaceObject subject) throws Exception {
@@ -77,13 +132,6 @@ public class DSpaceSiteAdapter extends AbstractDSpaceEventAdapter
         * ADDING RDF for site metadata
         * =================================================================
         */
-
-        String title = ConfigurationManager.getProperty("lod", "title");
-        String description = ConfigurationManager.getProperty("lod","description");
-        String creator = ConfigurationManager.getProperty("lod","creator");
-        String homepage = ConfigurationManager.getProperty("lod","homepage");
-        String sparqlEndPoint = ConfigurationManager.getProperty("lod","sparqlEndPoint");
-
         handleStatement(aggregation,
                 DC.title_, valueFactory.createLiteral(subject.getName()),DS.DescriptiveMetadata);
 
