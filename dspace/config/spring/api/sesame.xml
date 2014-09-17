@@ -27,7 +27,7 @@
         <constructor-arg ref="org.dspace.services.RequestService"/>
         <property name="manager">
             <bean class="org.openrdf.repository.manager.RemoteRepositoryManager">
-                <constructor-arg value="${dspace.url}/sesame"/>
+                <constructor-arg value="${dspace.baseUrl}/sesame"/>
             </bean>
         </property>
         <property name="config">
