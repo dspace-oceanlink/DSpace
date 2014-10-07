@@ -24,6 +24,18 @@
 
     <xsl:output indent="yes"/>
 
+    <xsl:variable name="context-path">
+        <xsl:choose>
+            <xsl:when test="contains(//@rdf:about, '/handle')">
+                <!-- http://localhost:8080/xmlui/handle/123456789/1122, get string before /handle -->
+                <xsl:value-of select="substring-before(//@rdf:about, '/handle')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="//@rdf:about"/>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:variable>
 
     <xsl:template match="/rdf:RDF">
         <html>
@@ -31,8 +43,16 @@
                 <title>
                     <xsl:value-of select="*[0]/@rdf:about"/>
                 </title>
-                <link rel="stylesheet" type="text/css" href="/static/lod/style.css" />
-                <link rel="stylesheet" type="text/css" href="/static/lod/metadata.css" />
+                <link rel="stylesheet" type="text/css">
+                    <xsl:attribute name="href">
+                        <xsl:value-of select="concat($context-path,'/static/lod/style.css')"/>
+                    </xsl:attribute>
+                </link>
+                <link rel="stylesheet" type="text/css">
+                    <xsl:attribute name="href">
+                        <xsl:value-of select="concat($context-path,'/static/lod/metadata.css')"/>
+                    </xsl:attribute>
+                </link>
 
                 <link rel="alternate" type="application/rdf+xml" href="?Accept=application/rdf+xml" title="This page in RDF (XML)" />
                 <link rel="alternate" type="text/turtle" href="?Accept=text/turtle" title="This page in RDF (Turtle)" />
@@ -40,7 +60,14 @@
             <body class="browser">
 
                 <div id="rdficon">
-                    <a href="?Accept=text/n3" title="RDF data"><img src="/static/lod/rdf_flyer.24.gif" alt="[RDF data]" /></a>
+                    <a href="?Accept=text/n3" title="RDF data">
+                        <img alt="[RDF data]">
+                            <xsl:attribute name="src">
+                                <xsl:value-of select="concat($context-path,'/static/lod/rdf_flyer.24.gif')"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="title"><xsl:value-of select="$context-path"></xsl:value-of></xsl:attribute>
+                        </img>
+                    </a>
                 </div>
 
                 <div id="header">
@@ -50,8 +77,22 @@
                 </div>
 
                 <div class="section" style="line-height:30px">
-                    <strong><a href="/">Home</a></strong>
-                    <strong><a href="/data">Data</a></strong>
+                    <strong>
+                        <a>
+                            <xsl:attribute name="href">
+                                <xsl:value-of select="$context-path"/>
+                            </xsl:attribute>
+                            <xsl:text>Home</xsl:text>
+                        </a>
+                    </strong>
+                    <strong>
+                        <a>
+                            <xsl:attribute name="href">
+                                <xsl:value-of select="concat($context-path, '/data')"/>
+                            </xsl:attribute>
+                            <xsl:text>Data</xsl:text>
+                        </a>
+                    </strong>
                     <strong><a href="/sesame/repositories/dspace">SPARQL End-Point</a></strong>
                 </div>
 
@@ -79,12 +120,16 @@
 
     <xsl:template match="@rdf:about|@rdf:resource">
         <a>
-            <xsl:attribute name="href"><xsl:value-of select="concat('/data?subject=',.)"/></xsl:attribute>
+            <xsl:attribute name="href"><xsl:value-of select="concat($context-path, '/data?subject=', .)"/></xsl:attribute>
             <xsl:value-of select="."/>
         </a>
         <a>
             <xsl:attribute name="href"><xsl:value-of select="."/></xsl:attribute>
-            <img src="/static/lod/external.png"/>
+            <img>
+                <xsl:attribute name="src">
+                    <xsl:value-of select="concat($context-path,'/static/lod/external.png')"/>
+                </xsl:attribute>
+            </img>
         </a>
     </xsl:template>
 </xsl:stylesheet>
