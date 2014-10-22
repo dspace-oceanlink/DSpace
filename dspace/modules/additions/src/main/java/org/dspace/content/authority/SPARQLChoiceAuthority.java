@@ -7,9 +7,11 @@
  */
 package org.dspace.content.authority;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
  import com.hp.hpl.jena.query.Query;
 import org.dspace.core.ConfigurationManager;
+import org.dspace.core.Context;
 import org.dspace.core.SelfNamedPlugin;
 import com.hp.hpl.jena.query.*;
 
@@ -40,6 +42,8 @@ public class SPARQLChoiceAuthority extends SelfNamedPlugin implements ChoiceAuth
     // contact URL from configuration
     private static String endpoint_url = null;
     private static String sparql_query = null;
+    private Context context=null;
+    private String cruise_url = "http://linked.rvdata.us/page/cruise/";
 
 
     private String prefix="PREFIX db: <http://linked.rvdata.us/resource/>\n"+
@@ -62,6 +66,14 @@ public class SPARQLChoiceAuthority extends SelfNamedPlugin implements ChoiceAuth
 
 
     public SPARQLChoiceAuthority(){
+        try
+        {
+             context = new Context();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
         if (endpoint_url == null)
         {
             endpoint_url = ConfigurationManager.getProperty("endpoint.url");
@@ -88,16 +100,16 @@ public class SPARQLChoiceAuthority extends SelfNamedPlugin implements ChoiceAuth
         ArrayList<Choice> v = new ArrayList<Choice>();
         query = query.substring(0,1).toUpperCase()+query.substring(1,query.length());
 
-        sparql_query =prefix + "SELECT ?title WHERE { ?s a <http://linked.rvdata.us/vocab/resource/class/Cruise> . ?s dcterms:title ?title FILTER regex(?title, \'^"+query+"\') } ORDER BY ?s LIMIT 100";
+        sparql_query =prefix + "SELECT DISTINCT ?title ?identifier WHERE { ?s a <http://linked.rvdata.us/vocab/resource/class/Cruise> . ?s ?p ?title FILTER regex(?title, \'^"+query+"\') . ?s dcterms:identifier ?identifier } ORDER BY ?s LIMIT 100";
 
          queryEndPoint(v);
 
         // If query is wrong then fetch all titles
         if(v.size() == 0)
         {
-            sparql_query =prefix+"SELECT DISTINCT ?s ?p ?o WHERE { ?s a <http://linked.rvdata.us/vocab/resource/class/Cruise> . ?s <http://purl.org/dc/terms/title> ?o } ORDER BY ?s LIMIT 100";
+            sparql_query =prefix+"SELECT DISTINCT ?title ?identifier\n" + "WHERE { ?s a <http://linked.rvdata.us/vocab/resource/class/Cruise> . ?s <http://purl.org/dc/terms/title> ?title . ?s dcterms:identifier ?identifier} ORDER BY ?s LIMIT 1000";
 
-            queryAllTitle(v);
+            queryEndPoint(v);
         }
         Choice[] choices = v.toArray(new Choice[v.size()]);
         return new Choices(choices, 0,v.size(), Choices.CF_AMBIGUOUS, false, dflt);
@@ -132,20 +144,8 @@ public class SPARQLChoiceAuthority extends SelfNamedPlugin implements ChoiceAuth
         while(results.hasNext())
         {
             QuerySolution row=results.nextSolution();
-            choiceList.add(new Choice(row.getLiteral("title").getString(), row.getLiteral("title").getString(), row.getLiteral("title").getString()));
+            choiceList.add(new Choice(cruise_url+row.getLiteral("identifier").getString(), row.getLiteral("title").getString(), row.getLiteral("title").getString()+"<"+cruise_url+row.getLiteral("identifier").getString()+">"));
         }
     }
 
-    public void queryAllTitle(ArrayList<Choice> choiceList)
-    {
-
-        Query query = QueryFactory.create(sparql_query);
-        QueryExecution qExe = QueryExecutionFactory.sparqlService(endpoint_url, query );
-        ResultSet results = qExe.execSelect();
-        while(results.hasNext())
-        {
-            QuerySolution row=results.nextSolution();
-            choiceList.add(new Choice(row.getLiteral("o").getString(), row.getLiteral("o").getString(), row.getLiteral("o").getString()));
-        }
-    }
 }
