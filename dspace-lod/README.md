@@ -30,20 +30,20 @@ Add the following dependency management versions to the [dspace-parent.pom](../p
           <dependency>
              <groupId>org.dspace</groupId>
              <artifactId>dspace-lod-api</artifactId>
-             <version>4.3-SNAPSHOT</version>
+             <version>${project.version}</version>
              <type>jar</type>
           </dependency>
           <dependency>
              <groupId>org.dspace</groupId>
              <artifactId>dspace-lod-xmlui</artifactId>
-             <version>4.3-SNAPSHOT</version>
+             <version>${project.version}</version>
              <type>jar</type>
              <classifier>classes</classifier>
           </dependency>
           <dependency>
              <groupId>org.dspace</groupId>
              <artifactId>dspace-lod-xmlui</artifactId>
-             <version>4.3-SNAPSHOT</version>
+             <version>${project.version}</version>
              <type>war</type>
           </dependency>
 ```
