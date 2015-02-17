@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="Encode any UTF-8 chars in properties"  >
+<target name="Encode any UTF-8 chars in properties">
+  <native2ascii dest="/development/clients/woodshole/atmire-authority/../target" encoding="UTF8" src="/development/clients/woodshole/atmire-authority/.." includes="*.properties"/>
+</target>
+</project>
