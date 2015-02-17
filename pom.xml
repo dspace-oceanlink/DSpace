@@ -510,6 +510,18 @@
                 <module>dspace-lod</module>
             </modules>
         </profile>
+
+       <profile>
+           <id>atmire-authority</id>
+           <activation>
+               <file>
+                   <exists>atmire-authority/pom.xml</exists>
+               </file>
+           </activation>
+           <modules>
+               <module>atmire-authority</module>
+           </modules>
+       </profile>
         
        <!--
           The 'release' profile is used by the 'maven-release-plugin' (see above)

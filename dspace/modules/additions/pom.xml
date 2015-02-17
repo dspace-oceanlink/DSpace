@@ -87,6 +87,12 @@
    -->
    <dependencies>
 
+       <dependency>
+           <groupId>com.atmire</groupId>
+           <artifactId>atmire-authority-api</artifactId>
+           <version>4.3-SNAPSHOT</version>
+       </dependency>
+
       <dependency>
          <groupId>org.dspace</groupId>
          <artifactId>dspace-lod-api</artifactId>
