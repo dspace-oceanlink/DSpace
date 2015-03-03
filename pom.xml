@@ -544,6 +544,7 @@
             <module>dspace-sword</module>
             <module>dspace-swordv2</module>
             <module>dspace-lod</module>
+             <module>atmire-authority</module>
          </modules>
       </profile>
 
@@ -694,6 +695,26 @@
             <version>4.3-SNAPSHOT</version>
             <type>war</type>
          </dependency>
+
+          <dependency>
+              <groupId>com.atmire</groupId>
+              <artifactId>atmire-authority-api</artifactId>
+              <version>4.3-SNAPSHOT</version>
+              <type>jar</type>
+          </dependency>
+          <dependency>
+              <groupId>com.atmire</groupId>
+              <artifactId>atmire-authority-xmlui</artifactId>
+              <version>4.3-SNAPSHOT</version>
+              <type>jar</type>
+              <classifier>classes</classifier>
+          </dependency>
+          <dependency>
+              <groupId>com.atmire</groupId>
+              <artifactId>atmire-authority-xmlui</artifactId>
+              <version>4.3-SNAPSHOT</version>
+              <type>war</type>
+          </dependency>
          
          <!-- DSpace Localization Packages -->
          <dependency>

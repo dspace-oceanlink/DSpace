@@ -414,7 +414,7 @@ public class ConceptViewer extends AbstractDSpaceTransformer implements Cacheabl
 
 
 
-    public void addOptions(org.dspace.app.xmlui.wing.element.Options options) throws SAXException, org.dspace.app.xmlui.wing.WingException, org.dspace.app.xmlui.utils.UIException, SQLException, IOException, org.dspace.authorize.AuthorizeException
+    public void addOptions(org.dspace.app.xmlui.wing.element.Options options) throws org.xml.sax.SAXException, org.dspace.app.xmlui.wing.WingException, org.dspace.app.xmlui.utils.UIException, java.sql.SQLException, java.io.IOException, org.dspace.authorize.AuthorizeException
     {
 
 

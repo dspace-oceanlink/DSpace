@@ -75,12 +75,18 @@
                 <entry key="dc_contributor_author">
                     <bean class="org.dspace.authority.PersonAuthorityValue"/>
                 </entry>
+                <entry key="dc_subject_vessel">
+                    <bean class="org.dspace.authority.AuthorityValue"/>
+                </entry>
             </map>
         </property>
         <property name="externalSources">
             <map>
                 <entry key="dc_contributor_author">
                     <ref bean="OrcidSource"/>
+                </entry>
+                <entry key="dc_subject_vessel">
+                    <ref bean="SPARQLSource"/>
                 </entry>
             </map>
         </property>
@@ -92,5 +98,8 @@
         <!--<constructor-arg value="http://api.sandbox.orcid.org/v1.1"/>  -->
     </bean>
 
+    <bean name="SPARQLSource" class="org.dspace.authority.sparql.SPARQLSource">
+        <constructor-arg value="http://linked.rvdata.us/sparql"/>
+    </bean>
 
 </beans>

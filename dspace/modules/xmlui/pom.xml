@@ -71,11 +71,18 @@
                            keep lang web.xml from overiding xmlui
                         -->
                         <exclude>WEB-INF/web.xml</exclude>
+                         <exclude>WEB-INF/classes/**</exclude>
                      </excludes>
                   </overlay>
                   <overlay>
                      <groupId>org.dspace</groupId>
                      <artifactId>dspace-xmlui</artifactId>
+                      <excludes>
+                          <!--
+                             keep lang web.xml from overiding xmlui
+                          -->
+                          <exclude>WEB-INF/classes/**</exclude>
+                      </excludes>
                   </overlay>
                </overlays>
             </configuration>
@@ -109,32 +116,43 @@
        
    <dependencies>
 
+
+
        <dependency>
            <groupId>com.atmire</groupId>
            <artifactId>atmire-authority-xmlui</artifactId>
-           <version>4.3-SNAPSHOT</version>
+           <version>${version}</version>
            <type>war</type>
        </dependency>
 
-      <dependency>
-         <groupId>org.dspace.modules</groupId>
-         <artifactId>additions</artifactId>
-      </dependency>
-      
-      <!-- DSpace LOD XMLUI Webapp -->
-      <dependency>
-         <groupId>org.dspace</groupId>
-         <artifactId>dspace-lod-xmlui</artifactId>
-         <type>war</type>
-      </dependency>
 
-      <!-- DSpace LOD XMLUI API -->
-      <dependency>
-         <groupId>org.dspace</groupId>
-         <artifactId>dspace-lod-xmlui</artifactId>
-         <type>jar</type>
-         <classifier>classes</classifier>
-      </dependency>
+       <dependency>
+           <groupId>com.atmire</groupId>
+           <artifactId>atmire-authority-xmlui</artifactId>
+           <version>${version}</version>
+           <type>jar</type>
+           <classifier>classes</classifier>
+       </dependency>
+
+       <dependency>
+           <groupId>org.dspace.modules</groupId>
+           <artifactId>additions</artifactId>
+       </dependency>
+
+       <!-- DSpace LOD XMLUI Webapp -->
+       <dependency>
+           <groupId>org.dspace</groupId>
+           <artifactId>dspace-lod-xmlui</artifactId>
+           <type>war</type>
+       </dependency>
+
+       <!-- DSpace LOD XMLUI API -->
+       <dependency>
+           <groupId>org.dspace</groupId>
+           <artifactId>dspace-lod-xmlui</artifactId>
+           <type>jar</type>
+           <classifier>classes</classifier>
+       </dependency>
 
       <!-- DSpace XMLUI Languages -->
       <dependency>
