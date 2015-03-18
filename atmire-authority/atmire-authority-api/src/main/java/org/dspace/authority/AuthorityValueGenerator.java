@@ -50,6 +50,7 @@ public class AuthorityValueGenerator {
     protected static AuthorityValue generateRaw(String uid, String content, String field) {
         AuthorityValue nextValue;
         if (uid != null && uid.startsWith(AuthorityValueGenerator.GENERATE)) {
+
             String[] split = StringUtils.split(uid, SPLIT);
             String type = null, info = null;
             if (split.length > 0) {
@@ -60,9 +61,13 @@ public class AuthorityValueGenerator {
             }
             AuthorityValue authorityType = AuthorityValue.getAuthorityTypes().getEmptyAuthorityValue(type);
             nextValue = authorityType.newInstance(info);
+
         } else {
+
             Map<String, AuthorityValue> fieldDefaults = AuthorityValue.getAuthorityTypes().getFieldDefaults();
+
             nextValue = fieldDefaults.get(field);
+
             if (nextValue == null) {
                 nextValue = new AuthorityValue();
             }
@@ -70,6 +75,7 @@ public class AuthorityValueGenerator {
             {
                 nextValue = nextValue.newInstance(null);
             }
+
             nextValue.setValue(content);
         }
         return nextValue;

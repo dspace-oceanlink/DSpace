@@ -68,6 +68,7 @@
             <list>
                 <bean class="org.dspace.authority.orcid.OrcidAuthorityValue"/>
                 <bean class="org.dspace.authority.PersonAuthorityValue"/>
+                <bean class="org.dspace.authority.sparql.SPARQLAuthorityValue"/>
             </list>
         </property>
         <property name="fieldDefaults">
@@ -86,7 +87,7 @@
                     <ref bean="OrcidSource"/>
                 </entry>
                 <entry key="dc_subject_vessel">
-                    <ref bean="SPARQLSource"/>
+                    <ref bean="org.dspace.authority.sparql.SPARQLSource"/>
                 </entry>
             </map>
         </property>
@@ -98,8 +99,9 @@
         <!--<constructor-arg value="http://api.sandbox.orcid.org/v1.1"/>  -->
     </bean>
 
-    <bean name="SPARQLSource" class="org.dspace.authority.sparql.SPARQLSource">
+    <bean name="org.dspace.authority.sparql.SPARQLSource" class="org.dspace.authority.sparql.SPARQLSource">
         <constructor-arg value="http://linked.rvdata.us/sparql"/>
+        <property name="spring_query" value="Bermuda"/>
     </bean>
 
 </beans>
