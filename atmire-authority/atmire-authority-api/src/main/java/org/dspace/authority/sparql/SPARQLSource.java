@@ -33,30 +33,6 @@ public class SPARQLSource implements AuthoritySource {
 
     private static String sparql_query = null;
 
-    public static final String IDENTIFIER = "meta_vessel_identifier";
-
-    private String cruise_url = "http://linked.rvdata.us/page/cruise/";
-    private AuthorityTypes types = new DSpace().getServiceManager().getServiceByName("AuthorityTypes", AuthorityTypes.class);
-
-
-    private String prefix="PREFIX db: <http://linked.rvdata.us/resource/>\n"+
-            "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\n" +
-            "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
-            "PREFIX r2rmodel: <http://voc.rvdata.us/>\n" +
-            "PREFIX sf: <http://www.opengis.net/ont/sf#>\n" +
-            "PREFIX r2r: <http://linked.rvdata.us/vocab/resource/class/>\n" +
-            "PREFIX vcard: <http://www.w3.org/2001/vcard-rdf/3.0#>\n" +
-            "PREFIX dcterms: <http://purl.org/dc/terms/>\n" +
-            "PREFIX gn: <http://www.geonames.org/ontology#>\n" +
-            "PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>\n" +
-            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-            "PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>\n" +
-            "PREFIX map: <http://linked.rvdata.us/resource/#>\n" +
-            "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n" +
-            "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" +
-            "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
-            "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n" ;
-
     private String spring_query;
     private String sparql_query_one_record;
 
@@ -79,7 +55,6 @@ public class SPARQLSource implements AuthoritySource {
 
         String metadataValue = null;
         String schemeId = ConfigurationManager.getProperty("solrauthority.searchscheme." + "dc_subject_vessel");
-        //AuthoritySource source = types.getExternalSources().get(schemeId);
         try {
             Context context = new Context();
             Scheme scheme = Scheme.findByIdentifier(context, schemeId);
