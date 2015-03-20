@@ -2,16 +2,12 @@ package org.dspace.authority.sparql;
 
 import com.hp.hpl.jena.query.*;
 import org.dspace.authority.AuthoritySource;
-import org.dspace.authority.AuthorityTypes;
 import org.dspace.authority.AuthorityValue;
 import org.dspace.authority.model.AuthorityMetadataValue;
 import org.dspace.authority.model.Scheme;
 import org.dspace.content.authority.Choices;
 import org.dspace.core.ConfigurationManager;
 import org.dspace.core.Context;
-import org.dspace.utils.DSpace;
-import org.springframework.beans.factory.annotation.Required;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,9 +20,6 @@ import java.util.UUID;
  * Time: 1:09 PM
  */
 public class SPARQLSource implements AuthoritySource {
-
-
-
 
     // contact URL from configuration
     private static String endpoint_url = null;
