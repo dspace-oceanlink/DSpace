@@ -164,7 +164,8 @@ public class SPARQLSource implements AuthoritySource {
             authorityValue.setValue(row.getLiteral("value").getString());
         else
             authorityValue.setValue(row.getLiteral("s").getString());
-        authorityValue.setSparql_id(row.getLiteral("s").getString());
+        String uri = row.getResource("s").getURI();
+        authorityValue.setSparql_id(uri);
         return authorityValue;
 
     }

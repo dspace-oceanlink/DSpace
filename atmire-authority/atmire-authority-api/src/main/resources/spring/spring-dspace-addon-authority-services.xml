@@ -87,10 +87,10 @@
                 <entry key="dc_contributor_author">
                     <ref bean="OrcidSource"/>
                 </entry>
-                <entry key="dc_subject_vessel1">
+                <entry key="dc_subject_vessel">
                     <ref bean="org.dspace.authority.sparql.SPARQLSource"/>
                 </entry>
-                <entry key="dc_subject_vessel">
+                <entry key="dc_subject_vessel1">
                     <ref bean="org.dspace.authority.mock.MockSource"/>
                 </entry>
             </map>
